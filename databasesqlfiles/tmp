@@ -1,0 +1,18 @@
+
+#open (MYFILE, $filename);
+/*
+$companyName = $ARGV[0];
+$flightName = $ARGV[1];
+$initialport
+if ($companyName eq "FINNAIR"){
+    $initialport= 57000;
+}else if($companyName eq "KLM"){
+    $initialport = 58000;
+}else if($companyName eq "LUFTHANSA"){
+    $initialport = 59000;
+}
+for($i=$initialport;i<$initialport+1000;$i++){
+    print MYFILE "INSERT INTO HELICOPTERPORTS (flight_Id,ipAdress,port)  VALUES ($id,\"127.0.0.1\",$port);";   
+}
+*/
+

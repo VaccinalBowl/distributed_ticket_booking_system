@@ -1,0 +1,12 @@
+bin/
+*~
+*class
+*\#
+.classpath
+.project.settings/
+.project
+.settings/
+a
+stuff
+
+
