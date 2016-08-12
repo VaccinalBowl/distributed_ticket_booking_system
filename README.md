@@ -1,3 +1,5 @@
+
+
 Distributed Ticket Reservation System
 =====================================
 
@@ -15,8 +17,7 @@ of the core concept of distributed systems:
 The Problem
 -----------
 The hypothetical scenario was that in a remote region of Sweden there is a village with no internet connection. It is connected to a town
-by helicopter. Travel between the village and town is only possible via helicopter. The only networking possible between the town and village
-was possible during which 
+by helicopter. Travel between the village and town is only possible via helicopter. The following documents discuss the problems invol
 
 1.Introduction
 --------------
@@ -117,7 +118,9 @@ loser in this case is the user of the Encampment GUI as the helicopter companies
 only be inconvenienced by a user that booked a flight not turning up. The user doesn’t
 even know if they were successful in this case.
 Below is a picture of the situation:
-1It is important to note that Helicopters and the Companies that they belong to never really
+![Alt text](readmepngs/diagram1.png?raw=true "Optional Title")
+
+1 It is important to note that Helicopters and the Companies that they belong to never really
 synchronise time once the system is running. It has been proved that it is not possible to design
 a protocol that allows this to occur.
 The pictures shows most of what was described above. The lines linking the nodes
@@ -146,6 +149,7 @@ confirmation or a cancellation confirmation. This is exactly the same what happe
 helicopter connects to the helicopter company. The packet is sent from the helicopter
 to the company and the helicopter then carries the packet it receives back to the camp.
 The diagram below shows the basic structure.
+![Alt text](readmepngs/diagram2.png?raw=true "Optional Title")
 The functionality of the Helicopter class is that it contains the database and has
 networking capability to receive incoming connections from other companies,
 helicopters and nodes in the town. It only ever acts as a client to contact the other
@@ -159,6 +163,7 @@ class are synchronised. Deadlock prevention is insured by not allowing either of
 synchronised methods call each other. If a locked method does not call another locked
 method deadlock cannot occur.
 ###3.3 Helicopters
+![Alt text](readmepngs/diagram3.png?raw=true "Optional Title")
 The above diagram outlines the main behavior of the helicopter. The packet vector
 is population by either the companies or the camp and then sent to the other side
 and offloaded. The multithreaded server runs when the helicopter is in the camp and
@@ -176,6 +181,7 @@ is synchronised automatically so that function is wrapped in another function th
 unsynchronised. This ensures that data is not corrupt. Again as the method has no
 nested synchronised method calls deadlock cannot occur.
 ###3.4 EncampmentGUI
+![Alt text](readmepngs/diagram4.png?raw=true "Optional Title")
 The encampment GUI contains a small multithreaded server. This is to wait for the
 helicopter responses when they come back from the town. The client part of the
 company is designed to latch onto a helicopter when it appears at the camp. An
@@ -183,6 +189,9 @@ important point to note here is that the helicopter company knows nothing about
 the Encampment GUI unless the Encampment GUI contacts it with a request. The
 Encampment sends its IP and Port to the chopper so that the helicopter knows where to
 deliver the response from the town. Below is a screen shot of the GUI
+
+![Alt text](readmepngs/diagram5.png?raw=true "Optional Title")
+
 4 Algorithms
 ------------
 In this section the main algorithms of the project are outlined. Each of the important
