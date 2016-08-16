@@ -201,20 +201,21 @@ There are three main ways to book a flight in the system. The first one is from 
 helicopter company itself. It is the most simplest of all. The user enters the request in
 the Helicopter Company's GUI and the following steps occur.
 ####4.1.1 Booking with Helicopter Company Directly
-
+~~~~
 parse input and ensure that user input is valid
 if(valid) then
-attemptBookingWithFlight
-if(flightBookingSuccess) then
-return REFERENCENUMBER
+  attemptBookingWithFlight
+  if(flightBookingSuccess) then
+    return REFERENCENUMBER
+  else
+    contactOtherCompanies to make request
+    if(successful)then
+      return referenceFromOtherCompany
+    else
+      return noAvailability
 else
-contactOtherCompanies to make request
-if(successful)then
-return referenceFromOtherCompany
-else
-return noAvailability
-else
-try again
+  try again
+~~~~
 
 This algorithm is very self explanatory. It also iinvolves load sharing. If a company is
 full on a certain day this algorithm will request availability with other companies. If a
@@ -222,15 +223,18 @@ communication failure occurs here the system will continue just ignoring the fai
 exception is caught and execution continues.
 
 ####4.1.2 Booking with Helicopter Company From the Camp
+~~~~
 parse input and ensure user input is valid
 if(valid) then
-searchForHelicopter until helicopter found
-send packet to helicopter
-wait for confirmation from town
-when confirmation received
-print success or try again
+  searchForHelicopter until helicopter found
+  send packet to helicopter
+  wait for confirmation from town
+  when confirmation received
+  print success or try again
 else
-try again
+  try again
+~~~~
+
 This algorithm is extremely unfair on the users in the camp however it is scalable to a
 point. The find helicopter algorithm should be fine as long the the number of helicopters
 does not become ridiculously large or unrealistic. However if that was the case the
@@ -240,17 +244,19 @@ with a ridiculously large amount of helicopters is reasonable as the more helico
 that there are the higher the probability becomes that there will be a helicopter in the
 camp at all times that will eventually be found.
 ####4.1.3 Booking with Helicopter Company remotely in town
+~~~~
 parse input and ensure user input is valid
 if(valid) then
-connectToAHelicopterCompany
-send packet
-check response
-if unsuccessful
-try next helicopter company
+  connectToAHelicopterCompany
+  send packet
+  check response
+  if unsuccessful
+    try next helicopter company
+  else
+    finish
 else
-finish
-else
-try again
+  try again
+~~~~
 The algorithm here leaves it up to the user to find a flight. Loadsharing is simply done by
 giving the user the choice between companies.
 The three algorithms presented in the above section implement load sharing. The first
@@ -272,25 +278,26 @@ booking algorithms except that the packet is not a booking packet but a cancella
 packet.
 ###4.3 Helicopter Flight Algorithm
 In this section the main algorithm of a flying helicopter is given.
+~~~~
 Begin life at camp
 wait for time of departure
 loop to infinite
-if in town
-go to camp
-turn on server for incoming connections
-deliver towns response packets if any
-else
-go to town
-turn of server
-deliver packets from camp
-if response is companyatisfactory
-deliver next packet
-else
-deliver to next company until satisfactory
-response received
+  if in town
+    go to camp
+    turn on server for incoming connections
+    deliver towns response packets if any
+  else
+    go to town
+    turn off server
+    deliver packets from camp
+  if response is companyatisfactory
+    deliver next packet
+  else
+    deliver to next company until satisfactory
+    response received
+  end
 end
-end
-
+~~~~
 This algorithm is linearly scalable. It suffers the same drawbacks as the helicopter
 companies when load sharing. In fact the load sharing is implemented here as the
 helicopter will search through all companies if trying to book a flight until it fails. If there
